@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sentiment Analysis</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center">Sentiment Analysis</h1>
+      <form id="sentimentForm">
+        <div class="form-group">
+          <label for="text">Enter text:</label>
+          <textarea
+            id="text"
+            name="text"
+            class="form-control"
+            rows="4"
+            required
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Analyze</button>
+      </form>
+      <div id="result" class="mt-4"></div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $("#sentimentForm").on("submit", function (event) {
+          event.preventDefault(); // Prevent the form from submitting the traditional way
+
+          $.ajax({
+            type: "POST",
+            url: "/analyze",
+            data: $(this).serialize(),
+            success: function (response) {
+              $("#result").html(response);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
